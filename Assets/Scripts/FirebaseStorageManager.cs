@@ -135,12 +135,13 @@ public class FirebaseStorageManager : MonoBehaviour
         Transform parent = GameObject.Find("ShopItems").GetComponent<Transform>();
 
         GameObject newStoreitem = Instantiate(StoreItemPrefab, parent);
-        newStoreitem.transform.GetChild(1).GetComponent<RawImage>().texture = imageTexture;
-        newStoreitem.transform.GetChild(3).GetComponent<TMP_Text>().text = storeItem.Price.ToString();
-        newStoreitem.transform.GetChild(4).GetComponent<TMP_Text>().text = storeItem.Name;
+        newStoreitem.transform.GetChild(0).GetComponent<RawImage>().texture = imageTexture;
+        newStoreitem.transform.GetChild(1).GetComponent<TMP_Text>().text = storeItem.Price.ToString();
+        newStoreitem.transform.GetChild(2).GetComponent<TMP_Text>().text = storeItem.Name;
         newStoreitem.GetComponent<ItemPurchase>().Item = storeItem;
         yield return null;
     }
+
 
     public void DownloadToFile(string url, string filepath)
     {

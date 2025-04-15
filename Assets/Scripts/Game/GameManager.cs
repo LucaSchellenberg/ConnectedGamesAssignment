@@ -311,4 +311,35 @@ public class GameManager : NetworkBehaviour  // Changed to NetworkBehaviour for 
         }
     }
     #endregion
+
+    public void ApplySkinToPieces(Texture2D newSkin, Side targetSide)
+    {
+        // Find all VisualPiece objects in the scene.
+        VisualPiece[] pieces = GameObject.FindObjectsOfType<VisualPiece>();
+        foreach (VisualPiece vp in pieces)
+        {
+            // Only update the pieces that match the target color.
+            if (vp.PieceColor == targetSide)
+            {
+                // Try to update a Renderer (for 3D models).
+                Renderer renderer = vp.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    renderer.material.mainTexture = newSkin;
+                }
+                else
+                {
+                    // If you are using 2D sprites, try a SpriteRenderer instead.
+                    SpriteRenderer spriteRenderer = vp.GetComponent<SpriteRenderer>();
+                    if (spriteRenderer != null)
+                    {
+                        // Create a new sprite from the texture.
+                        spriteRenderer.sprite = Sprite.Create(newSkin,
+                            new Rect(0, 0, newSkin.width, newSkin.height),
+                            new Vector2(0.5f, 0.5f));
+                    }
+                }
+            }
+        }
+    }
 }
